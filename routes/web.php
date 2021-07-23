@@ -20,18 +20,18 @@ Route::get('/', function () {
     return view('Rivas');
 });
 
-Route::get('players/{playerID}/games', function () {
+Route::get('players/{player}/games', function () {
     return ['COD Modern Warfare', 'Horizon Zero Dawn','Warhammer 4000'];
 });
-Route::get('players/{playerID}/games/{gameID}', function () {
+Route::get('players/{player}/games/{game}', function () {
     return 'KoF 2003';
 });
-Route::post('players/{playerID}/games', function () {
+Route::post('players/{player}/games', function () {
     return 'fetching games list';
 });
-Route::put('players/{playerID}/games/{gameID}', function () {
+Route::put('players/{player}/games/{game}', function () {
     return 'game updated!!';
 });
-Route::delete('players/{playerID}/games/{gameID}', function () {
+Route::delete('players/{player}/games/{game}', function () {
     return 'game deleted your set';
 });
