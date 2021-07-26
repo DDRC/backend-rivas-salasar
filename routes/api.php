@@ -37,10 +37,11 @@ Route::get('projects',function (){
    return 'eliminado';
 });
 
+
 //Relacionados
 
 Route::get('cashiers',function (){
-    return ['cashier1','cashier2'];
+    return ['cashier1','cashier2','cashier3'];
  });
 
 Route::get('cashiers/{cashier}/computers/{computer}', function () {
@@ -58,4 +59,3 @@ Route::post('cashiers/',function (){
  Route::delete('cashiers/{cashier}/computers/{computer}',function (){
     return 'logeo eliminado';
  });
- 
