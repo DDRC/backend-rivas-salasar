@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PlayersController extends Controller
+class GamesController extends Controller
 {
-    /* muestra los juegos de una jugador
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $usersList = ['atlas', 'Shadow Dragon', 'user123'];
+        $gamesList = ['COD Modern Warfare', 'Horizon Zero Dawn', 'Warhammer 4000'];
         return response()->json(
             [
-                'data' => $usersList,
+                'data' => $gamesList,
                 'msg' => [
                     'summary' => 'consulta correcta',
-                    'detail' => 'la consulta de usuarios correcta',
+                    'detail' => 'la consulta de juegos correcta',
                     'code' => '200'
                 ]
             ],
@@ -24,35 +27,43 @@ class PlayersController extends Controller
         );
     }
 
-    /* añade un juego a la coleccion de un jugador en teoria
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $respuesta = 'user creation completed';
+        $respuesta='game creation completed';
         return response()->json(
-            [
-                'data' => $respuesta,
-                'msg' => [
-                    'summary' => 'consulta correcta',
-                    'detail' => 'creacion del jugador completa',
-                    'code' => '201'
-                ]
-            ],
-            201
-        );
+                    [
+                        'data' => $respuesta,
+                        'msg' => [
+                            'summary' => 'consulta correcta',
+                            'detail' => 'creacion del juego completa',
+                            'code' => '201'
+                        ]
+                    ],
+                    201
+                );
     }
 
-    /* Muestra un juego de un jugador en teoria
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $game = 'WarchiWar';
+        $game = 'KoF 2003';
         return response()->json(
             [
                 'data' => $game,
                 'msg' => [
                     'summary' => 'consulta correcta',
-                    'detail' => 'la consulta de usuarios está correcta',
+                    'detail' => 'la consulta de juegos está correcta',
                     'code' => '200'
                 ]
             ],
@@ -60,7 +71,12 @@ class PlayersController extends Controller
         );
     }
 
-    /* actualiza un juego de un jugador en teoria
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -77,11 +93,15 @@ class PlayersController extends Controller
         );
     }
 
-    /* elimina un juego en teoria
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $respuesta = 'user deleted from your set';
+        $respuesta = 'game deleted from your set';
         return response()->json(
             [
                 'data' => $respuesta,
@@ -94,11 +114,12 @@ class PlayersController extends Controller
             201
         );
     }
+    
     /* Actualiza el estado de un juego  de un jugador en teoria
      */
-    public function updateUSerState()
+    public function updateGameState()
     {
-        $respuesta = 'user state state updated';
+        $respuesta = 'game state updated';
         return response()->json(
             [
                 'data' => $respuesta,
