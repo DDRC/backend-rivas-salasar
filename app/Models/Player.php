@@ -23,11 +23,11 @@ class Player extends Model
     //     return $this->hasOne(Game::class);
     // }
     // uno a varios
-    // function games(){
-    //     return $this->hasMany(Game::class);
-    // }
-    // varios a varios
     function games(){
-        return $this->belongsToMany(Game::class)->withTimestamps();
+        return $this->hasMany(Game::class);
     }
+    // varios a varios
+    // function games(){
+    //     return $this->belongsToMany(Game::class)->withTimestamps();
+    // }
 }

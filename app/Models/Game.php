@@ -17,15 +17,15 @@ class Game extends Model
         'state',
         'owner',
         'developer',
-        'genter',
+        'genre',
         'releaseDate',
-        'is_sold',
+        'sold',
     ];
     protected $attributes=['full_name'];
     //castear para que se acople a un tipo de representacion de un campo
     protected $casts=[
         'releaseDate'=>'DateTime:Y-m-d',
-        'is_sold'=>'boolean',
+        'sold'=>'boolean',
     ];
 //mutadores-->funciones que cambian la estructura de los datos y los datos en si
 function setPrizeAtribute($value){
@@ -46,11 +46,11 @@ function getFullNameAtribute($value){
     // }
 
     // uno a varios
-    // function player(){
-    //     return $this->belongsTo(Player::class);
-    // }
-    // varios a varios
-    function players(){
-        return $this->belongsToMany(Player::class)->withTimestamps();
+    function player(){
+        return $this->belongsTo(Player::class);
     }
+    // varios a varios
+    // function players(){
+    //     return $this->belongsToMany(Player::class)->withTimestamps();
+    // }
 }
