@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Player;
 
 class PlayersController extends Controller
 {
@@ -10,7 +13,12 @@ class PlayersController extends Controller
      */
     public function index()
     {
-        $usersList = ['atlas', 'Shadow Dragon', 'user123'];
+        //sql
+        $usersList =  DB::select('select * from app.players');
+        //query builder
+        // $usersList =  DB::table('app.players')->get();
+        //eloquent-> trabajo con los modelos creados en laravel
+        // $usersList =  Player::get();
         return response()->json(
             [
                 'data' => $usersList,
@@ -28,7 +36,37 @@ class PlayersController extends Controller
      */
     public function store(Request $request)
     {
-        $respuesta = 'user creation completed';
+        //sql
+        // $respuesta = DB::insert(
+        //     'insert into app.players (id,name, nickname,status,gameslist,stadistics)
+        //  values (?,?,?,?, ?,?)',
+        //     [
+        //         $request->id,
+        //         $request->name,
+        //         $request->nickname,
+        //         $request->status,
+        //         $request->gameslist,
+        //         $request->stadistics,
+
+        //     ]
+        // );
+        //query builder
+        $respuesta = DB::table('app.players')->insert([
+            'name' => $request->name,
+            'nickname' => $request->nickname,
+            'status' => $request->status,
+            'gameslist' => $request->gameslist,
+            'stadistics' => $request->stadistics,
+        ]);
+        //eloquent
+        // $respuesta = new Player();
+        // $respuesta->name = $request->name; //name (1) viene del modelo
+        // $respuesta->nickname = $request->nickname; //name (2) viene del cliente y puede ser cambiado facilmente desde el cliente
+        // $respuesta->status = $request->status;
+        // $respuesta->gameslist = $request->gameslist;
+        // $respuesta->stadistics = $request->stadistics;
+        // $respuesta->save();
+
         return response()->json(
             [
                 'data' => $respuesta,
@@ -44,12 +82,18 @@ class PlayersController extends Controller
 
     /* Muestra un juego de un jugador en teoria
      */
-    public function show($id)
+    public function show(Player $player)
     {
-        $game = 'WarchiWar';
+
+        //sql
+        // $respuesta = DB::select('select * from app.players where id=?',[$player]);
+        // //query builder
+        // $respuesta = DB::table('app.players')->where('id', '=', $player)->first();
+        //eloquent
+        // $respuesta = Player::find($player);
         return response()->json(
             [
-                'data' => $game,
+                'data' => $player,
                 'msg' => [
                     'summary' => 'consulta correcta',
                     'detail' => 'la consulta de usuarios está correcta',
@@ -62,8 +106,15 @@ class PlayersController extends Controller
 
     /* actualiza un juego de un jugador en teoria
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $player)
     {
+        $respuesta = Player::find($player); //primero realizo la busqueda del registro
+        $respuesta->name = $request->name;
+        $respuesta->nickname = $request->nickname;
+        $respuesta->status = $request->status;
+        $respuesta->gameslist = $request->gameslist;
+        $respuesta->stadistics = $request->stadistics;
+        $respuesta->save();
         return response()->json(
             [
                 'data' => null,
@@ -79,9 +130,10 @@ class PlayersController extends Controller
 
     /* elimina un juego en teoria
      */
-    public function destroy($id)
+    public function destroy($player)
     {
-        $respuesta = 'user deleted from your set';
+        $respuesta = Player::find($player);
+        $respuesta->delete();
         return response()->json(
             [
                 'data' => $respuesta,

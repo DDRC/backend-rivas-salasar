@@ -18,8 +18,10 @@ class Game extends Model
         'owner',
         'developer',
         'genre',
+        'title',
         'releaseDate',
         'sold',
+        
     ];
     //protected $attributes=['full_name'];
     //castear para que se acople a un tipo de representacion de un campo

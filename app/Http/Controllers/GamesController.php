@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Game;
+use App\Models\Player;
 
 class GamesController extends Controller
 {
@@ -13,7 +15,8 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $gamesList = ['COD Modern Warfare', 'Horizon Zero Dawn', 'Warhammer 4000'];
+        
+        $gamesList = Game::get();
         return response()->json(
             [
                 'data' => $gamesList,
@@ -33,9 +36,35 @@ class GamesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Player $player)
     {
-        $respuesta='game creation completed';
+
+        // $author = new Author();
+        // $nationality = Nationality::find($request->nationality['id']);
+        // $author->project()->associate($project);
+        // $author->nationality()->associate($nationality);
+
+        // $author->names = $request->names;
+        // $author->email = $request->email;
+        // $author->age = $request->age;
+        // $author->phone = $request->phone;
+        // $author->identification = $request->identification;
+
+        // $author->save();
+
+        $respuesta=new Game();
+        //$player = Player::find($request->player['id']); //para acceder a un Id que se envia por medio del cuerpo de la peticion 
+        $respuesta->player()->associate($player); //para los FK el player() debe existir en el modelo el que representara la asociacion
+        $respuesta->prize=$request->prize; //name (1) viene del modelo
+        $respuesta->state=$request->state; //name (2) viene del cliente y puede ser cambiado facilmente desde el cliente
+        $respuesta->owner=$request->owner;
+        $respuesta->developer=$request->developer;
+        $respuesta->genre=$request->genre;
+        $respuesta->title=$request->title;
+        $respuesta->releaseDate=$request->releaseDate;
+        $respuesta->sold=$request->sold;
+        $respuesta->save();
+        
         return response()->json(
                     [
                         'data' => $respuesta,
@@ -55,12 +84,12 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($game)
     {
-        $game = 'KoF 2003';
+        $respuesta = Game::find($game);
         return response()->json(
             [
-                'data' => $game,
+                'data' => $respuesta,
                 'msg' => [
                     'summary' => 'consulta correcta',
                     'detail' => 'la consulta de juegos está correcta',
@@ -78,8 +107,18 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $game)
     {
+        $respuesta=Game::find($game); 
+        $respuesta->prize=$request->prize; 
+        $respuesta->state=$request->state; 
+        $respuesta->owner=$request->owner;
+        $respuesta->developer=$request->developer;
+        $respuesta->genre=$request->genre;
+        $respuesta->title=$request->title;
+        $respuesta->releaseDate=$request->releaseDate;
+        $respuesta->sold=$request->sold;
+        $respuesta->save();
         return response()->json(
             [
                 'data' => null,
@@ -99,9 +138,11 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($game)
     {
-        $respuesta = 'game deleted from your set';
+        $respuesta=Game::find($game);
+        $respuesta->delete();
+        
         return response()->json(
             [
                 'data' => $respuesta,

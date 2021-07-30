@@ -26,13 +26,16 @@ class CreateAppGamesTable extends Migration
 
             $table->string('owner',50)
             ->default('')
-            ->comment('duño del juego si el estado esta comprado');
+            ->comment('Distribuidor del titulo');
 
             $table->string('developer',30)
             ->comment('desarrolladora del juego');
 
-            $table->string('genre',15)
+            $table->string('genre',25)
             ->comment('genero del juego');
+
+            $table->string('title',25)
+            ->comment('titulo del juego');
 
             $table->date('releaseDate',$precision=0)
             ->nullable()
