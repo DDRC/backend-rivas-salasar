@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    // use HasFactory;
+    use HasFactory;
     //nombre de la tabla
-    protected $table='games';
+    protected $table='app.games';
     // compos de la tabla
     protected $fillable=[
         'prize',
@@ -21,10 +21,10 @@ class Game extends Model
         'releaseDate',
         'sold',
     ];
-    protected $attributes=['full_name'];
+    //protected $attributes=['full_name'];
     //castear para que se acople a un tipo de representacion de un campo
     protected $casts=[
-        'releaseDate'=>'DateTime:Y-m-d',
+        'releaseDate'=>'date',
         'sold'=>'boolean',
     ];
 //mutadores-->funciones que cambian la estructura de los datos y los datos en si
@@ -32,12 +32,12 @@ function setPrizeAtribute($value){
     $this->attributes['prize']='$ '.$value;
 }
 //accessors --> obtiene informacin de la DB cambiando solo la respuesta pero no lo de la DB
-function getPrizeAtribute($value){
+function getDeveloperAtribute($value){
     return $this->attributes['developer'].strtolower($this->attributes['developer']);
 }
-function getFullNameAtribute($value){
-    return $this->attributes['owner'].$this->attributes['state'];
-}
+// function getFullNameAtribute($value){
+//     return $this->attributes['owner'].$this->attributes['state'];
+// }
     // relaciones 
     // uno a uno
 

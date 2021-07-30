@@ -34,7 +34,8 @@ class CreateAppGamesTable extends Migration
             $table->string('genre',15)
             ->comment('genero del juego');
 
-            $table->dateTime('releaseDate')
+            $table->date('releaseDate',$precision=0)
+            ->nullable()
             ->comment('fecha de lanzamiento');
 
             $table->boolean('sold')
